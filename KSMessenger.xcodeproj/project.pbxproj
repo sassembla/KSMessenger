@@ -21,6 +21,10 @@
 		13A34D57168C4A6400EA938B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D38168C4A6400EA938B /* Foundation.framework */; };
 		13A34D5F168C4A6400EA938B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D5D168C4A6400EA938B /* InfoPlist.strings */; };
 		13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D61168C4A6400EA938B /* KSMessengerTests.m */; };
+		13A34D70168C4ACF00EA938B /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D6F168C4ACF00EA938B /* KSMessenger.m */; };
+		13A34D71168C4ACF00EA938B /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D6F168C4ACF00EA938B /* KSMessenger.m */; };
+		13A34D73168C4D8B00EA938B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D72168C4D8B00EA938B /* README.md */; };
+		13A34D74168C4D8B00EA938B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D72168C4D8B00EA938B /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,9 @@
 		13A34D5E168C4A6400EA938B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		13A34D60168C4A6400EA938B /* KSMessengerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSMessengerTests.h; sourceTree = "<group>"; };
 		13A34D61168C4A6400EA938B /* KSMessengerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSMessengerTests.m; sourceTree = "<group>"; };
+		13A34D6E168C4ACF00EA938B /* KSMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMessenger.h; sourceTree = "<group>"; };
+		13A34D6F168C4ACF00EA938B /* KSMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMessenger.m; sourceTree = "<group>"; };
+		13A34D72168C4D8B00EA938B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +89,8 @@
 		13A34D27168C4A6400EA938B = {
 			isa = PBXGroup;
 			children = (
-				13A34D3C168C4A6400EA938B /* KSMessenger */,
+				13A34D6B168C4AB800EA938B /* KSMessenger */,
+				13A34D3C168C4A6400EA938B /* KSMessengerApp */,
 				13A34D5A168C4A6400EA938B /* KSMessengerTests */,
 				13A34D35168C4A6400EA938B /* Frameworks */,
 				13A34D33168C4A6400EA938B /* Products */,
@@ -109,13 +117,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		13A34D3C168C4A6400EA938B /* KSMessenger */ = {
+		13A34D3C168C4A6400EA938B /* KSMessengerApp */ = {
 			isa = PBXGroup;
 			children = (
 				13A34D45168C4A6400EA938B /* AppDelegate.h */,
 				13A34D46168C4A6400EA938B /* AppDelegate.m */,
 				13A34D3D168C4A6400EA938B /* Supporting Files */,
 			);
+			name = KSMessengerApp;
 			path = KSMessenger;
 			sourceTree = "<group>";
 		};
@@ -150,6 +159,17 @@
 				13A34D5D168C4A6400EA938B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13A34D6B168C4AB800EA938B /* KSMessenger */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D72168C4D8B00EA938B /* README.md */,
+				13A34D6E168C4ACF00EA938B /* KSMessenger.h */,
+				13A34D6F168C4ACF00EA938B /* KSMessenger.m */,
+			);
+			name = KSMessenger;
+			path = KSMessenger/KSMessenger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +247,7 @@
 				13A34D49168C4A6400EA938B /* Default.png in Resources */,
 				13A34D4B168C4A6400EA938B /* Default@2x.png in Resources */,
 				13A34D4D168C4A6400EA938B /* Default-568h@2x.png in Resources */,
+				13A34D73168C4D8B00EA938B /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A34D5F168C4A6400EA938B /* InfoPlist.strings in Resources */,
+				13A34D74168C4D8B00EA938B /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +285,7 @@
 			files = (
 				13A34D43168C4A6400EA938B /* main.m in Sources */,
 				13A34D47168C4A6400EA938B /* AppDelegate.m in Sources */,
+				13A34D70168C4ACF00EA938B /* KSMessenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */,
+				13A34D71168C4ACF00EA938B /* KSMessenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
