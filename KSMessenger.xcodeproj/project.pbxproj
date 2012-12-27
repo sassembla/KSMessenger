@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13A34D37168C4A6400EA938B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D36168C4A6400EA938B /* UIKit.framework */; };
+		13A34D39168C4A6400EA938B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D38168C4A6400EA938B /* Foundation.framework */; };
+		13A34D3B168C4A6400EA938B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D3A168C4A6400EA938B /* CoreGraphics.framework */; };
+		13A34D41168C4A6400EA938B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D3F168C4A6400EA938B /* InfoPlist.strings */; };
+		13A34D43168C4A6400EA938B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D42168C4A6400EA938B /* main.m */; };
+		13A34D47168C4A6400EA938B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D46168C4A6400EA938B /* AppDelegate.m */; };
+		13A34D49168C4A6400EA938B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D48168C4A6400EA938B /* Default.png */; };
+		13A34D4B168C4A6400EA938B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D4A168C4A6400EA938B /* Default@2x.png */; };
+		13A34D4D168C4A6400EA938B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D4C168C4A6400EA938B /* Default-568h@2x.png */; };
+		13A34D55168C4A6400EA938B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D54168C4A6400EA938B /* SenTestingKit.framework */; };
+		13A34D56168C4A6400EA938B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D36168C4A6400EA938B /* UIKit.framework */; };
+		13A34D57168C4A6400EA938B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D38168C4A6400EA938B /* Foundation.framework */; };
+		13A34D5F168C4A6400EA938B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D5D168C4A6400EA938B /* InfoPlist.strings */; };
+		13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D61168C4A6400EA938B /* KSMessengerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		13A34D58168C4A6400EA938B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13A34D29168C4A6400EA938B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13A34D31168C4A6400EA938B;
+			remoteInfo = KSMessenger;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		13A34D32168C4A6400EA938B /* KSMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13A34D36168C4A6400EA938B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		13A34D38168C4A6400EA938B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		13A34D3A168C4A6400EA938B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		13A34D3E168C4A6400EA938B /* KSMessenger-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSMessenger-Info.plist"; sourceTree = "<group>"; };
+		13A34D40168C4A6400EA938B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		13A34D42168C4A6400EA938B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		13A34D44168C4A6400EA938B /* KSMessenger-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KSMessenger-Prefix.pch"; sourceTree = "<group>"; };
+		13A34D45168C4A6400EA938B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		13A34D46168C4A6400EA938B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		13A34D48168C4A6400EA938B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		13A34D4A168C4A6400EA938B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		13A34D4C168C4A6400EA938B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		13A34D53168C4A6400EA938B /* KSMessengerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSMessengerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13A34D54168C4A6400EA938B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		13A34D5C168C4A6400EA938B /* KSMessengerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSMessengerTests-Info.plist"; sourceTree = "<group>"; };
+		13A34D5E168C4A6400EA938B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		13A34D60168C4A6400EA938B /* KSMessengerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSMessengerTests.h; sourceTree = "<group>"; };
+		13A34D61168C4A6400EA938B /* KSMessengerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSMessengerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		13A34D2F168C4A6400EA938B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D37168C4A6400EA938B /* UIKit.framework in Frameworks */,
+				13A34D39168C4A6400EA938B /* Foundation.framework in Frameworks */,
+				13A34D3B168C4A6400EA938B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13A34D4F168C4A6400EA938B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D55168C4A6400EA938B /* SenTestingKit.framework in Frameworks */,
+				13A34D56168C4A6400EA938B /* UIKit.framework in Frameworks */,
+				13A34D57168C4A6400EA938B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13A34D27168C4A6400EA938B = {
+			isa = PBXGroup;
+			children = (
+				13A34D3C168C4A6400EA938B /* KSMessenger */,
+				13A34D5A168C4A6400EA938B /* KSMessengerTests */,
+				13A34D35168C4A6400EA938B /* Frameworks */,
+				13A34D33168C4A6400EA938B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		13A34D33168C4A6400EA938B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D32168C4A6400EA938B /* KSMessenger.app */,
+				13A34D53168C4A6400EA938B /* KSMessengerTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		13A34D35168C4A6400EA938B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D36168C4A6400EA938B /* UIKit.framework */,
+				13A34D38168C4A6400EA938B /* Foundation.framework */,
+				13A34D3A168C4A6400EA938B /* CoreGraphics.framework */,
+				13A34D54168C4A6400EA938B /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		13A34D3C168C4A6400EA938B /* KSMessenger */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D45168C4A6400EA938B /* AppDelegate.h */,
+				13A34D46168C4A6400EA938B /* AppDelegate.m */,
+				13A34D3D168C4A6400EA938B /* Supporting Files */,
+			);
+			path = KSMessenger;
+			sourceTree = "<group>";
+		};
+		13A34D3D168C4A6400EA938B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D3E168C4A6400EA938B /* KSMessenger-Info.plist */,
+				13A34D3F168C4A6400EA938B /* InfoPlist.strings */,
+				13A34D42168C4A6400EA938B /* main.m */,
+				13A34D44168C4A6400EA938B /* KSMessenger-Prefix.pch */,
+				13A34D48168C4A6400EA938B /* Default.png */,
+				13A34D4A168C4A6400EA938B /* Default@2x.png */,
+				13A34D4C168C4A6400EA938B /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13A34D5A168C4A6400EA938B /* KSMessengerTests */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D60168C4A6400EA938B /* KSMessengerTests.h */,
+				13A34D61168C4A6400EA938B /* KSMessengerTests.m */,
+				13A34D5B168C4A6400EA938B /* Supporting Files */,
+			);
+			path = KSMessengerTests;
+			sourceTree = "<group>";
+		};
+		13A34D5B168C4A6400EA938B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				13A34D5C168C4A6400EA938B /* KSMessengerTests-Info.plist */,
+				13A34D5D168C4A6400EA938B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		13A34D31168C4A6400EA938B /* KSMessenger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13A34D65168C4A6400EA938B /* Build configuration list for PBXNativeTarget "KSMessenger" */;
+			buildPhases = (
+				13A34D2E168C4A6400EA938B /* Sources */,
+				13A34D2F168C4A6400EA938B /* Frameworks */,
+				13A34D30168C4A6400EA938B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KSMessenger;
+			productName = KSMessenger;
+			productReference = 13A34D32168C4A6400EA938B /* KSMessenger.app */;
+			productType = "com.apple.product-type.application";
+		};
+		13A34D52168C4A6400EA938B /* KSMessengerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13A34D68168C4A6400EA938B /* Build configuration list for PBXNativeTarget "KSMessengerTests" */;
+			buildPhases = (
+				13A34D4E168C4A6400EA938B /* Sources */,
+				13A34D4F168C4A6400EA938B /* Frameworks */,
+				13A34D50168C4A6400EA938B /* Resources */,
+				13A34D51168C4A6400EA938B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13A34D59168C4A6400EA938B /* PBXTargetDependency */,
+			);
+			name = KSMessengerTests;
+			productName = KSMessengerTests;
+			productReference = 13A34D53168C4A6400EA938B /* KSMessengerTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		13A34D29168C4A6400EA938B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "KISSAKI Inc,";
+			};
+			buildConfigurationList = 13A34D2C168C4A6400EA938B /* Build configuration list for PBXProject "KSMessenger" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 13A34D27168C4A6400EA938B;
+			productRefGroup = 13A34D33168C4A6400EA938B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13A34D31168C4A6400EA938B /* KSMessenger */,
+				13A34D52168C4A6400EA938B /* KSMessengerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		13A34D30168C4A6400EA938B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D41168C4A6400EA938B /* InfoPlist.strings in Resources */,
+				13A34D49168C4A6400EA938B /* Default.png in Resources */,
+				13A34D4B168C4A6400EA938B /* Default@2x.png in Resources */,
+				13A34D4D168C4A6400EA938B /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13A34D50168C4A6400EA938B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D5F168C4A6400EA938B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		13A34D51168C4A6400EA938B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		13A34D2E168C4A6400EA938B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D43168C4A6400EA938B /* main.m in Sources */,
+				13A34D47168C4A6400EA938B /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13A34D4E168C4A6400EA938B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13A34D59168C4A6400EA938B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13A34D31168C4A6400EA938B /* KSMessenger */;
+			targetProxy = 13A34D58168C4A6400EA938B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		13A34D3F168C4A6400EA938B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13A34D40168C4A6400EA938B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		13A34D5D168C4A6400EA938B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13A34D5E168C4A6400EA938B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		13A34D63168C4A6400EA938B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		13A34D64168C4A6400EA938B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13A34D66168C4A6400EA938B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
+				INFOPLIST_FILE = "KSMessenger/KSMessenger-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		13A34D67168C4A6400EA938B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
+				INFOPLIST_FILE = "KSMessenger/KSMessenger-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		13A34D69168C4A6400EA938B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSMessenger.app/KSMessenger";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
+				INFOPLIST_FILE = "KSMessengerTests/KSMessengerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		13A34D6A168C4A6400EA938B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSMessenger.app/KSMessenger";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
+				INFOPLIST_FILE = "KSMessengerTests/KSMessengerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		13A34D2C168C4A6400EA938B /* Build configuration list for PBXProject "KSMessenger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13A34D63168C4A6400EA938B /* Debug */,
+				13A34D64168C4A6400EA938B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13A34D65168C4A6400EA938B /* Build configuration list for PBXNativeTarget "KSMessenger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13A34D66168C4A6400EA938B /* Debug */,
+				13A34D67168C4A6400EA938B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		13A34D68168C4A6400EA938B /* Build configuration list for PBXNativeTarget "KSMessengerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13A34D69168C4A6400EA938B /* Debug */,
+				13A34D6A168C4A6400EA938B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 13A34D29168C4A6400EA938B /* Project object */;
+}
