@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+
+				maven {
+					url('http://openbakery.org/repository/')
+					//url uri('/tmp/repo')
+				}
+				mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.openbakery', name: 'xcodePlugin', version: '0.6.+'
+    }
+}
+apply plugin: 'xcode'
+
+buildscript {
+   configurations.classpath.resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+xcodebuild {
+	sdk = 'iphoneos'
+	target = 'KSMessenger'
+	signIdentity = 'iPhone Developer'
+
+	//additionalParameters = "GCC_PREPROCESSOR_DEFINITIONS='TIME=" + System.currentTimeMillis() + "'"
+	//archiveVersion = "-1.0.0"
+}
