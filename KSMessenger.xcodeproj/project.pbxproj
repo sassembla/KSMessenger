@@ -23,7 +23,6 @@
 		13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D61168C4A6400EA938B /* KSMessengerTests.m */; };
 		13A34D70168C4ACF00EA938B /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D6F168C4ACF00EA938B /* KSMessenger.m */; };
 		13A34D71168C4ACF00EA938B /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A34D6F168C4ACF00EA938B /* KSMessenger.m */; };
-		13A34D73168C4D8B00EA938B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D72168C4D8B00EA938B /* README.md */; };
 		13A34D74168C4D8B00EA938B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13A34D72168C4D8B00EA938B /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +54,6 @@
 		13A34D54168C4A6400EA938B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		13A34D5C168C4A6400EA938B /* KSMessengerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSMessengerTests-Info.plist"; sourceTree = "<group>"; };
 		13A34D5E168C4A6400EA938B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		13A34D60168C4A6400EA938B /* KSMessengerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSMessengerTests.h; sourceTree = "<group>"; };
 		13A34D61168C4A6400EA938B /* KSMessengerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSMessengerTests.m; sourceTree = "<group>"; };
 		13A34D6E168C4ACF00EA938B /* KSMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMessenger.h; sourceTree = "<group>"; };
 		13A34D6F168C4ACF00EA938B /* KSMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMessenger.m; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 		13A34D5A168C4A6400EA938B /* KSMessengerTests */ = {
 			isa = PBXGroup;
 			children = (
-				13A34D60168C4A6400EA938B /* KSMessengerTests.h */,
 				13A34D61168C4A6400EA938B /* KSMessengerTests.m */,
 				13A34D5B168C4A6400EA938B /* Supporting Files */,
 			);
@@ -247,7 +244,6 @@
 				13A34D49168C4A6400EA938B /* Default.png in Resources */,
 				13A34D4B168C4A6400EA938B /* Default@2x.png in Resources */,
 				13A34D4D168C4A6400EA938B /* Default-568h@2x.png in Resources */,
-				13A34D73168C4D8B00EA938B /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +451,7 @@
 				13A34D67168C4A6400EA938B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		13A34D68168C4A6400EA938B /* Build configuration list for PBXNativeTarget "KSMessengerTests" */ = {
 			isa = XCConfigurationList;
@@ -463,6 +460,7 @@
 				13A34D6A168C4A6400EA938B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
