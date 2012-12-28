@@ -26,7 +26,7 @@
 
 //remote invocation
 - (BOOL) isIncludeRemote:(NSDictionary * )dict;
-- (void) remoteInvocation:(id)inv withDict:(NSMutableDictionary * )dict, ...;//遅延実行　プライベート版
+- (void) remoteInvocation:(id)inv withDict:(NSDictionary * )dict, ...;//遅延実行　プライベート版
 - (NSDictionary * ) setPrivateRemoteInvocationFrom:(id)mySelf withSelector:(SEL)sel;//MessengerSystemの親決め限定の仕掛け
 
 //private notices
@@ -337,12 +337,10 @@
 			}
 			
 			
-			
 			//受信時にログに受信記録を付け、保存する
 			[self saveLogForReceived:recievedLogDict];
 			
-			
-			//遠隔実行で子供の親名簿に自分のMIDを登録する 子供がもつ、引数１の関数[setMyParentMID　を親から実行する。]
+            //遠隔実行で子供の親名簿に自分のMIDを登録する 子供がもつ、引数１の関数[setMyParentMID　を親から実行する。]
 			[self remoteInvocation:invocatorId withDict:dict, [self myMID], nil];
 			
 			
@@ -612,11 +610,19 @@
     myParentName = parent;
 }
 - (void) setMyParentMID:(NSString * )parentMID {
-    myParentMID = parentMID;
+    if ([[self myParentMID] isEqualToString:MS_DEFAULT_PARENTMID]) {
+		
+		[self saveToLogStore:@"setMyParentMID" log:[self tag:MS_LOG_LOGTYPE_GOTP val:[self myParentName]]];
+		
+		
+		myParentMID = parentMID;
+		
+		[self updatedNotice:[self myParentName] withParentMID:[self myParentMID]];
+	}
 }
 - (void) resetParent {
     [self setMyParentName:MS_DEFAULT_PARENTNAME];
-    [self setMyParentMID:MS_DEFAULT_PARENTMID];
+    myParentMID = MS_DEFAULT_PARENTMID;
 }
 
 
@@ -674,9 +680,6 @@
  ログストアに保存する。
  */
 - (void) saveLogForReceived:(NSMutableDictionary * ) recievedLogDict {
-	
-	
-	
 	//ログタイプ、タイムスタンプを作成
 	NSString * messageID = (NSString * )[recievedLogDict valueForKey:MS_LOG_MESSAGEID];
 	
@@ -821,6 +824,39 @@
 	NSAssert1([self hasParent], @"指定した親が存在しないようです。inputParentに指定している名前を確認してください_現在探して見つからなかった親の名前は_%@",[self myParentName]);
 	
 }
+
+/**
+ 現在の親情報を削除する
+ */
+- (void) removeFromParent {
+	NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:6];
+	
+	[dict setValue:MS_CATEGOLY_REMOVE_PARENT forKey:MS_CATEGOLY];
+	
+	[dict setValue:[self myParentName] forKey:MS_ADDRESS_NAME];
+	[dict setValue:[self myParentMID] forKey:MS_ADDRESS_MID];
+	
+	//	NSLog(@"[[self getMyParentName] hash]_%d", [[self getMyParentName] hash]);
+	//	NSLog(@"[[dict valueForKey:MS_ADDRESS_NAME] hash]_%d", [[dict valueForKey:MS_ADDRESS_NAME] hash]);
+	
+	[dict setValue:[self myName] forKey:MS_SENDERNAME];
+	[dict setValue:[self myMID] forKey:MS_SENDERMID];
+	
+	//ログを作成する
+	[self addCreationLog:dict];
+	
+	//最終送信処理
+	[self sendPerform:dict];//送信に失敗すると、親子関係は終了しない。この部分でエラーが出るのがたより。
+	
+	//初期化
+	[self resetParent];//初期化 この時点で子供から見た親情報はデフォルトになる
+	
+	//更新通知
+	[self updatedNotice:[self myParentName] withParentMID:[self myParentMID]];
+	
+}
+
+
 
 /**
  親が設定されているか否か返す
@@ -1216,5 +1252,57 @@
 	return m_logDict;
 }
 
+
+
+/**
+ Dealloc
+ */
+- (void) dealloc {
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:OBSERVER_ID object:nil];//ノーティフィケーションから外す
+	
+	
+	if ([self hasChild]) {
+		//		NSLog(@"子供がいる_%@",[self getMyName]);
+		[self removeAllChild];
+	}
+	
+	if ([self hasParent]) {
+		//		NSLog(@"親がいる_%@",[self getMyName]);
+		[self removeFromParent];
+	}
+	
+	[self killedNotice];
+	
+	
+	//自分の名前	NSString
+	//	NSAssert([myName retainCount] == 1, @"myName_%d",[myName retainCount]);
+	myName = nil;
+	
+	
+	//自分のID	NSString
+	//	NSAssert([myMID retainCount] == 1, @"myMID_%d",[myMID retainCount]);
+	myMID = nil;
+	
+	
+	//親の名前	NSString
+	//	NSAssert([myParentName retainCount] == 1, @"myParentName_%d",[myParentName retainCount]);
+	myParentName = nil;
+	
+	//親のID		NSString
+	//	NSAssert([myParentMID retainCount] == 1, @"myParentMID_%d",[myParentMID retainCount]);
+	myParentMID = nil;
+	
+	
+	//子供の名前とIDを保存する辞書	NSMutableDictionary
+	NSAssert([[self childrenDict] count] == 0, @"childDict_%d",[[self childrenDict] count]);
+	[m_childrenDict removeAllObjects];
+	
+	//ログ削除
+	//	NSAssert([m_logDict count] == 0, @"logDict_%d",[m_logDict count]);
+	[m_logDict removeAllObjects];
+	NSAssert([m_logDict count] == 0, @"logDict_%d",[m_logDict count]);
+    
+}
 
 @end
