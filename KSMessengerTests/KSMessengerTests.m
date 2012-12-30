@@ -1153,8 +1153,7 @@ KSMessenger * child_persis;
 }
 
 /**
- callback -child to parent then parent callback to child
- 子供が親にメッセージを投げ、親がそれを返す
+ callback -child send message to parent then parent callback to child
  */
 - (void) testCallbackFromParentToChild {
     ClassB * b = [[ClassB alloc]initClassBAsParent];
@@ -1173,10 +1172,9 @@ KSMessenger * child_persis;
                  @"not match. %@", [currentCallbackDict valueForKey:TEST_TAG_CALLBACK_2]);
 }
 
-
-
-
-//callbackの使い道に関するテスト(複数の値の受け渡し、実体を持った場合の処理など)
+/**
+ callback -get value
+ */
 - (void) testCallbackGetValue {
     ClassB * b = [[ClassB alloc]initClassB];
     NSLog(@"b is %@", b);
@@ -1185,7 +1183,7 @@ KSMessenger * child_persis;
     
     NSString * value = [currentCallbackDict valueForKey:TEST_TAG_CALLBACK_0];
     
-    //評価を行ってみる
+    //evaluate
     @try {
         if ([value isEqualToString:@"something"]) {
             NSLog(@"has problem! must not be equal");
@@ -1201,7 +1199,7 @@ KSMessenger * child_persis;
     @finally {}
     
     
-    //値の浅いコピーを行ってみる
+    //shallow copy
     @try {
         NSString * str = [NSString stringWithString:value];
         NSLog(@"str %@", str);
@@ -1212,7 +1210,7 @@ KSMessenger * child_persis;
     @finally {}
     
     
-    //値の深いコピーを行ってみる
+    //deep copy
     @try {
         NSString * str2 = [[NSString alloc]initWithString:value];
         NSLog(@"str2    %@", str2);
@@ -1225,20 +1223,14 @@ KSMessenger * child_persis;
 
 
 /**
- 混乱しそうな多数回のcallback
+ callback -same messenger returns values multitimes.
  */
 - (void) testCallbackMulti {
-    
-    
-    //    連続で答えを得る
-    //    その答えが順を満たす事を試す
     ClassB * b = [[ClassB alloc]initClassB];
     NSLog(@"b is %@", b);
     
-    
     //1
     NSDictionary * currentCallbackDict = [parent call:TEST_CLASS_B withExec:TEST_EXEC_CALLBACK, nil];
-    
     STAssertTrue([[currentCallbackDict valueForKey:TEST_TAG_CALLBACK_0] isEqualToString:TEST_VALUE_CALLBACK_0],
                  @"not match. %@", [currentCallbackDict valueForKey:TEST_TAG_CALLBACK_0]);
     
@@ -1246,8 +1238,7 @@ KSMessenger * child_persis;
     NSDictionary * currentCallbackDict_1 = [parent call:TEST_CLASS_B withExec:TEST_EXEC_CALLBACK_1, nil];
     STAssertTrue([[currentCallbackDict_1 valueForKey:TEST_TAG_CALLBACK_1] isEqualToString:TEST_VALUE_CALLBACK_1],
                  @"not match. %@", [currentCallbackDict_1 valueForKey:TEST_TAG_CALLBACK_1]);
-    
-    
+
     //3
     NSDictionary * currentCallbackDict_2 = [parent call:TEST_CLASS_B withExec:TEST_EXEC_CALLBACK, nil];
     STAssertTrue([[currentCallbackDict_2 valueForKey:TEST_TAG_CALLBACK_0] isEqualToString:TEST_VALUE_CALLBACK_0],
@@ -1255,26 +1246,26 @@ KSMessenger * child_persis;
 }
 
 /**
- 複数の子供から返事が来るので上書きされてしまうケース(上書きされた事をどう通知するか)
- いまは最後の返答者の値を採用してしまっているので、
+ callback -multi chidren will callback value, the last value is overridden by last callback.
  */
 - (void) testCallbackFromMultiChild {
-    //子供2人
+    //same name 2 children
     ClassB * b = [[ClassB alloc]initClassB];
     NSLog(@"b is %@", b);
     
     ClassB * b2 = [[ClassB alloc]initClassB];
     NSLog(@"b2 is %@", b2);
     
-    
+    /*
+     1st "b" callback value,
+     then
+     2nd "b2" callback value.
+     */
     NSDictionary * currentCallbackDict = [parent call:TEST_CLASS_B withExec:TEST_EXEC_CALLBACK, nil];
     
-    //このとき、実行の内容からして、currentCallbackDictのidには、b2が入る筈
+    //value is, from "b2". order is depends on the order of "connectParent" method.
     STAssertTrue([[currentCallbackDict valueForKey:@"id"] isEqualToString:[b2 mId]], @"not match,  %@", currentCallbackDict);
 }
-
-
-
 
 /**
  多層的なcallback
