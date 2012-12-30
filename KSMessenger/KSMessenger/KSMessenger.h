@@ -79,6 +79,10 @@
 #define MS_DEFAULT_PARENTNAME       (@"MESSENGER_SYSTEM_COMMAND:MS_DEFAULT_PARENTNAME")//デフォルトのmyParentName
 #define MS_DEFAULT_PARENTMID        (@"MESSENGER_SYSTEM_COMMAND:MS_DEFAULT_PARENTMID")//デフォルトのmyParentMID
 
+//exec of undefined
+#define MS_DEFAULT_UNDEFINED_EXEC   (-1)
+#define NONE                        (MS_DEFAULT_UNDEFINED_EXEC)
+
 #define VIEW_NAME_DEFAULT           (@"MESSENGER_SYSTEM_COMMAND:VIEW_NAME_DEFAULT")//デフォルトのViewのName ここに記述することで名称衝突を防ぐ
 
 
@@ -118,16 +122,27 @@
 + (NSString * ) generateMID;
 
 /**
+ open connection to NSNotification
+ */
+- (void) openConnection;
+
+/**
+ close connection to NSNotification
+ */
+- (void) closeConnection;
+
+
+/**
  initialize
  */
 - (id) initWithBodyID:(id)body_id withSelector:(SEL)body_selector withName:(NSString * )name;
 
 
 //relationship
-- (void) inputParent:(NSString * )parentName;//input myself to "parentName" messenger as these child.
-- (void) inputParent:(NSString *)parent withSpecifiedMID:(NSString * )mID;//with specified id
+- (void) connectParent:(NSString * )parentName;//input myself to "parentName" messenger as these child.
+- (void) connectParent:(NSString *)parent withSpecifiedMID:(NSString * )mID;//with specified id
 - (void) removeFromParent;//remove relationship from the child to the parent
-- (void) removeAllChild;//remove all relationships from the parent to the children
+- (void) removeAllChildren;//remove all relationships from the parent to the children
 - (BOOL) hasParent;
 - (BOOL) hasChild;
 - (NSMutableDictionary * ) childrenDict;
@@ -168,7 +183,7 @@
 
 
 /**
- なんかNSNumberの合成値返した方が楽なような気がするが、そうでもないのか,,,?
+ generate exec as NSString from int & messenger's name
  */
 - (NSString * )generateExec:(int)exec withMyName:(NSString * )name;
 
@@ -177,10 +192,7 @@
  */
 - (int) execFrom:(NSString * )sender viaNotification:(NSNotification * )notif;
 
-/**
- get exec as NSStrong
- */
-- (NSString * ) execAsString:(NSDictionary * )dict;
+
 
 /**
  get dictionary via notification
@@ -190,21 +202,9 @@
 
 
 /**
- getter
- */
-- (id) myBodyID;
-- (SEL) myBodySelector;
-
-
-/**
  cancel send message with delay
  */
 - (void) cancelPerform;
-
-/**
- return releasable or not
- */
-- (BOOL) isReleasable;
 
 
 

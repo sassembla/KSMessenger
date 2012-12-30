@@ -129,8 +129,8 @@
 		
 		
 		//設定されたbodyのメソッドを実行
-		IMP func = [[self myBodyID] methodForSelector:[self myBodySelector]];
-		(*func)([self myBodyID], [self myBodySelector], notification);
+		IMP func = [myBodyID methodForSelector:myBodySelector];
+		(*func)(myBodyID, myBodySelector, notification);
 		
 		
 		return;
@@ -171,8 +171,8 @@
 			
 			
 			//設定されたbodyのメソッドを実行
-			IMP func = [[self myBodyID] methodForSelector:[self myBodySelector]];
-			(* func)([self myBodyID], [self myBodySelector], notification);
+			IMP func = [myBodyID methodForSelector:myBodySelector];
+			(* func)(myBodyID, myBodySelector, notification);
 			return;
 		}
 		
@@ -210,8 +210,8 @@
 				[self saveLogForReceived:recievedLogDict];
 				
 				//設定されたbodyのメソッドを実行
-				IMP func = [[self myBodyID] methodForSelector:[self myBodySelector]];
-				(*func)([self myBodyID], [self myBodySelector], notification);
+				IMP func = [myBodyID methodForSelector:myBodySelector];
+				(*func)(myBodyID, myBodySelector, notification);
 				return;
 			}
 		}
@@ -329,7 +329,8 @@
 				}
 				
 			} else {
-				
+                NSLog(@"parent candidate received, %@, %@", [self myName], [self myMID]);
+				NSLog(@"child is, %@, %@", [invocatorId myName], [invocatorId myMID]);
 				//特定MIDが無い場合、親は先着順で設定される。既に子供が自分と同名の親にアクセスし、そのMIDを持っている場合があり得るため、ここで子供の持っている親MIDを確認する必要がある
 				if ([invocatorId hasParent]) {
 					NSAssert(FALSE, @"親が既に存在している    %@", [self myName]);//現在は複数の親を許容する仕様ではないので、エラーとして発生させる
@@ -736,6 +737,28 @@
 }
 
 
+- (void) openConnection {
+    [self resetParent];
+    m_childrenDict = [[NSMutableDictionary alloc] init];
+    m_logDict = [[NSMutableDictionary alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(innerPerform:) name:OBSERVER_ID object:nil];
+
+}
+- (void) closeConnection {
+    NSLog(@"i will exit, %@, %@", [self myName], [self myMID]);
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:OBSERVER_ID object:nil];//ノーティフィケーションから外す
+	
+	if ([self hasChild]) [self removeAllChildren];
+	NSAssert([[self childrenDict] count] == 0, @"childDict_%d",[[self childrenDict] count]);
+	
+	if ([self hasParent]) [self removeFromParent];
+	NSAssert([myParentName isEqualToString:MS_DEFAULT_PARENTNAME], @"myParentName is not MS_DEFAULT_PARENTNAME");
+    NSAssert([myParentMID isEqualToString:MS_DEFAULT_PARENTMID], @"myParentName is not MS_DEFAULT_PARENTMID");
+}
+
+
+//init
 
 - (id) initWithBodyID:(id)body_id withSelector:(SEL)body_selector withName:(NSString * )name {
 
@@ -751,18 +774,9 @@
 		[self setMyBodySelector:body_selector];
 		
 		myMID = [[NSString alloc] initWithString:[KSMessenger generateMID]];
+        NSLog(@"i am %@, %@",name, myMID);
         
-        
-		[self resetParent];
-        
-        
-        m_childrenDict = [[NSMutableDictionary alloc] init];
-        
-        
-        m_logDict = [[NSMutableDictionary alloc] init];
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(innerPerform:) name:OBSERVER_ID object:nil];
+        [self openConnection];
         
         [self createdNotice];
 	}
@@ -774,20 +788,24 @@
 //relationship
 
 /**
+ 親候補を探索、存在する場合、親子関係を構築する
+ 
  親へと自分が子供である事の通知を行い、返り値として親のMIDをmyParentMIDとして受け取るメソッド
  受け取り用のメソッドの情報を親へと渡し、親からの遠隔MID入力を受ける。
  */
-- (void) inputParent:(NSString * )parentName {
+- (void) connectParent:(NSString * )parentName {
 	NSAssert1(![parentName isEqualToString:[self myName]], @"自分と同名のmessengerを親に指定する事は出来ません_指定されたparentName_%@", parentName);
-	[self inputParent:parentName withSpecifiedMID:nil];
+	[self connectParent:parentName withSpecifiedMID:nil];
 }
 
 
 /**
+ 特定IDを持つ親候補を探索、存在する場合、親子関係を構築する
+ 
  親へと自分が子供である事の通知を行い、返り値として親のMIDをmyParentMIDとして受け取るメソッド
  親のMIDを特に特定できる場合に使用する。
  */
-- (void) inputParent:(NSString *)parent withSpecifiedMID:(NSString * )mID {
+- (void) connectParent:(NSString *)parent withSpecifiedMID:(NSString * )mID {
 	
 	NSAssert([[self myParentName] isEqualToString:MS_DEFAULT_PARENTNAME], @"デフォルト以外の親が既にセットされています。親を再設定する場合、resetMyParentDataメソッドを実行してから親指定を行ってください。");
 	
@@ -836,9 +854,6 @@
 	[dict setValue:[self myParentName] forKey:MS_ADDRESS_NAME];
 	[dict setValue:[self myParentMID] forKey:MS_ADDRESS_MID];
 	
-	//	NSLog(@"[[self getMyParentName] hash]_%d", [[self getMyParentName] hash]);
-	//	NSLog(@"[[dict valueForKey:MS_ADDRESS_NAME] hash]_%d", [[dict valueForKey:MS_ADDRESS_NAME] hash]);
-	
 	[dict setValue:[self myName] forKey:MS_SENDERNAME];
 	[dict setValue:[self myMID] forKey:MS_SENDERMID];
 	
@@ -853,10 +868,31 @@
 	
 	//更新通知
 	[self updatedNotice:[self myParentName] withParentMID:[self myParentMID]];
-	
 }
 
-
+- (void) removeAllChildren {
+	NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:6];
+	
+	[dict setValue:MS_CATEGOLY_REMOVE_CHILD forKey:MS_CATEGOLY];
+	
+	[dict setValue:[self myName] forKey:MS_ADDRESS_NAME];
+	[dict setValue:[self myMID] forKey:MS_ADDRESS_MID];
+	
+	[dict setValue:[self myName] forKey:MS_SENDERNAME];
+	[dict setValue:[self myMID] forKey:MS_SENDERMID];
+	
+	//ログを作成する
+	[self addCreationLog:dict];
+	
+	//最終送信処理
+	[self sendPerform:dict];
+	
+	//初期化
+	[[self childrenDict] removeAllObjects];
+	
+	//通知
+	[self updatedNotice:[self myParentName] withParentMID:[self myParentMID]];
+}
 
 /**
  親が設定されているか否か返す
@@ -931,13 +967,14 @@
 	
 	NSAssert(![childName isEqualToString:[self myName]], @"自分自身/同名の子供達へのメッセージブロードキャストをこのメソッドで行う事はできません。　callMyselfメソッドを使用してください");
 	NSAssert(![childName isEqualToString:MS_DEFAULT_PARENTNAME], @"システムで予約してあるデフォルトの名称です。　この名称を使ってのシステム使用はお勧めしません。");
-	
+    NSAssert(exec != MS_DEFAULT_UNDEFINED_EXEC, @"you cannnot use exec = -1, this param is system-reserved as NONE, MS_DEFAULT_UNDEFINED_EXEC.");
+    NSAssert(0 <= exec, @"must not negative. 0 <= exec");
 	
 	//特定のvalが含まれているか
 	NSArray * arrays = [[self childrenDict] allValues];
 	for (int i = 0; i <= [arrays count]; i++) {
 		if (i == [arrays count]) {
-			NSAssert1(FALSE, @"Without MID call先に指定したmessengerが存在しないか、未知のものです。このメソッドを使用するより先に、子供MessengerからinputParent(子から親を指定)を使ってください。_%@",childName);
+			NSAssert1(FALSE, @"Without MID call先に指定したmessengerが存在しないか、未知のものです。このメソッドを使用するより先に、子供MessengerからfindParent(子から親を指定)を使ってください。_%@",childName);
 			return nil;
 		}
 		
@@ -992,6 +1029,10 @@
 	NSAssert(![childName isEqualToString:MS_DEFAULT_PARENTNAME], @"システムで予約してあるデフォルトの名称です。　この名称を使ってのシステム使用は、その、なんだ、お勧めしません。");
 	NSAssert(mID ,@"mIDはnilでないNSStringである必要があります");
 	
+    NSAssert(exec != MS_DEFAULT_UNDEFINED_EXEC, @"you cannnot use exec = -1, this param is system-reserved as NONE, MS_DEFAULT_UNDEFINED_EXEC.");
+    NSAssert(0 <= exec, @"must not negative. 0 <= exec");
+    
+    
 	//MIDキーが含まれているか、その値がchildNameと一致するか
 	NSString * val = [[self childrenDict] valueForKey:mID];
 	if (!val) {
@@ -1050,6 +1091,9 @@
  */
 - (NSDictionary * ) callParent:(int)exec, ... {
 	
+    NSAssert(exec != MS_DEFAULT_UNDEFINED_EXEC, @"you cannnot use exec = -1, this param is system-reserved as NONE, MS_DEFAULT_UNDEFINED_EXEC.");
+    NSAssert(0 <= exec, @"must not negative. 0 <= exec");
+    
 	//親が居たら
 	if ([self hasParent]) {
 		NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -1113,11 +1157,9 @@
     NSMutableDictionary * sourceDict = (NSMutableDictionary *)[notif userInfo];
 	NSLog(@"sourceDict  %@", sourceDict);
     
-    
 	//送信者MID
 	NSString * senderMID = [sourceDict valueForKey:MS_SENDERMID];
 	NSAssert(senderMID, @"senderMID is nil");
-    
     
 	//送信者名
     NSString * parentOrChild = [sourceDict valueForKey:MS_SENDERNAME];
@@ -1132,16 +1174,19 @@
         NSAssert(false, @"this callback was called with -withDelay- keyword. not approrval in this version yet.");
     }
     
-    
-    
     NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:5];
-    
-    
     
     //自分が子供で、親から呼ばれた
     if ([categolyName isEqualToString:MS_CATEGOLY_CALLCHILD]) {
-        NSAssert([parentOrChild isEqualToString:[self myParentName]], @"一致しない親へのcallback name");
-        NSAssert([senderMID isEqualToString:[self myParentMID]], @"一致しない親へのcallback mid");
+        if (![parentOrChild isEqualToString:[self myParentName]]) {
+            NSAssert([parentOrChild isEqualToString:[self myParentName]], @"一致しない親へのcallback name");
+            return;
+        }
+        
+        if (![senderMID isEqualToString:[self myParentMID]]) {
+            NSAssert([senderMID isEqualToString:[self myParentMID]], @"一致しない親へのcallback mid");
+            return;
+        }
         
 		[dict setValue:MS_CATEGOLY_CALLBACK_FROM_CHILD forKey:MS_CATEGOLY];
 		[dict setValue:[self myParentName] forKey:MS_ADDRESS_NAME];
@@ -1167,9 +1212,7 @@
 		
 		while (kvDict) {//存在していなければnull、可変長引数の終了の合図。
 			
-			for (id key in kvDict) {
-				if (true) [dict setValue:[kvDict valueForKey:key] forKey:key];
-			}
+			for (id key in kvDict) if (true) [dict setValue:[kvDict valueForKey:key] forKey:key];
 			
 			kvDict = va_arg(vp, id);//次の値を読み出す
 		}
@@ -1206,15 +1249,39 @@
 	return [NSString stringWithFormat:@"%@%d", name, exec];
 }
 
+/**
+ get exec from sender(parent/child/myself) via notification
+    if input the name of sender who is not included in the relationship,
+    assert will fail.
+ */
 - (int) execFrom:(NSString * )sender viaNotification:(NSNotification * )notif {
-	NSDictionary * dict = [self tagValueDictionaryFromNotification:notif];
-	NSString * senderAndExec = [self execAsString:dict];
-	
-	return [[senderAndExec substringToIndex:[sender length]] intValue];
-}
-
-- (NSString * ) execAsString:(NSDictionary * )dict {
-	return [dict valueForKey:MS_EXECUTE];
+    NSDictionary * dict = [self tagValueDictionaryFromNotification:notif];
+    NSString * execSource = [dict valueForKey:MS_EXECUTE];
+    
+    int exec;
+    
+    if ([sender length] < [execSource length]) {
+        exec = [[execSource substringFromIndex:[sender length]] intValue];
+        NSAssert(exec != MS_DEFAULT_UNDEFINED_EXEC, @"cannnot receive exec-param = -1, this is reserved as NONE in this system.");
+        NSAssert(0 <= exec, @"cannnot receive negative-exec < 0");
+    } else {
+        exec = MS_DEFAULT_UNDEFINED_EXEC;
+    }
+    
+    if ([sender isEqualToString:myName]) {
+        return exec;
+    }
+    
+    if ([sender isEqualToString:myParentName]) {
+        return exec;
+    }
+    
+    if ([[m_childrenDict allValues] containsObject:sender]) {
+        return exec;
+    }
+    
+    NSAssert(false, @"there is no relationships between self:%@ to sender:%@", [self myName], sender);
+    return MS_DEFAULT_UNDEFINED_EXEC;
 }
 
 - (NSDictionary * ) tagValueDictionaryFromNotification:(NSNotification * )notif {
@@ -1224,9 +1291,8 @@
 
 
 /**
- tag valueメソッド
- 値にnilが入る事、
- システムが使うのと同様のコマンドが入っている事に関しては、注意する。
+ tag-value function
+ if nil is inserted to tag or val, assert failure.
  */
 - (NSDictionary * ) tag:(id)obj_tag val:(id)obj_value {
 	NSAssert1(obj_tag, @"tag_%@ is nil",obj_tag);
@@ -1235,9 +1301,18 @@
 	return [NSDictionary dictionaryWithObject:obj_value forKey:obj_tag];
 }
 
+
 /**
- 遅延実行タグ
- tag-Valueと同形式でオプションを挿入するメソッド
+ cancel send message with delay
+ */
+- (void) cancelPerform {
+	[NSRunLoop cancelPreviousPerformRequestsWithTarget:self];
+}
+
+
+/**
+ delay-tag
+ send massage with delay.
  */
 - (NSDictionary * ) withDelay:(float)delay {
 	NSAssert1(delay,@"withDelay_%f is nil",delay);
@@ -1254,55 +1329,18 @@
 
 
 
+
+
 /**
  Dealloc
  */
 - (void) dealloc {
-	
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:OBSERVER_ID object:nil];//ノーティフィケーションから外す
-	
-	
-	if ([self hasChild]) {
-		//		NSLog(@"子供がいる_%@",[self getMyName]);
-		[self removeAllChild];
-	}
-	
-	if ([self hasParent]) {
-		//		NSLog(@"親がいる_%@",[self getMyName]);
-		[self removeFromParent];
-	}
-	
-	[self killedNotice];
-	
-	
-	//自分の名前	NSString
-	//	NSAssert([myName retainCount] == 1, @"myName_%d",[myName retainCount]);
-	myName = nil;
-	
-	
-	//自分のID	NSString
-	//	NSAssert([myMID retainCount] == 1, @"myMID_%d",[myMID retainCount]);
-	myMID = nil;
-	
-	
-	//親の名前	NSString
-	//	NSAssert([myParentName retainCount] == 1, @"myParentName_%d",[myParentName retainCount]);
-	myParentName = nil;
-	
-	//親のID		NSString
-	//	NSAssert([myParentMID retainCount] == 1, @"myParentMID_%d",[myParentMID retainCount]);
-	myParentMID = nil;
-	
-	
-	//子供の名前とIDを保存する辞書	NSMutableDictionary
-	NSAssert([[self childrenDict] count] == 0, @"childDict_%d",[[self childrenDict] count]);
-	[m_childrenDict removeAllObjects];
-	
-	//ログ削除
-	//	NSAssert([m_logDict count] == 0, @"logDict_%d",[m_logDict count]);
-	[m_logDict removeAllObjects];
-	NSAssert([m_logDict count] == 0, @"logDict_%d",[m_logDict count]);
+	[self closeConnection];
     
+	//ログ削除
+	[m_logDict removeAllObjects];
+    
+    [self killedNotice];
 }
 
 @end
