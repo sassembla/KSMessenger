@@ -429,7 +429,7 @@
 				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
 				INFOPLIST_FILE = "KSMessengerTests/KSMessengerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
