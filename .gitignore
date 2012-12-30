@@ -8,3 +8,7 @@ KSMessenger.xcodeproj/xcuserdata/sassembla.xcuserdatad/xcschemes/KSMessenger.xcs
 KSMessenger.xcodeproj/xcuserdata/sassembla.xcuserdatad/xcschemes/xcschememanagement.plist
 
 KSMessenger.xcodeproj/xcuserdata/sassembla.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+
+.gradle/*
+
+
