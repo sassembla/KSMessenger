@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		132A27BA168FDFFC00439653 /* KSMessengerMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132A27B8168FDFFC00439653 /* KSMessengerMonitorViewController.m */; };
-		132A27BB168FDFFC00439653 /* KSMessengerMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132A27B8168FDFFC00439653 /* KSMessengerMonitorViewController.m */; };
-		132A27BC168FDFFC00439653 /* KSMessengerMonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 132A27B9168FDFFC00439653 /* KSMessengerMonitorViewController.xib */; };
-		132A27BD168FDFFC00439653 /* KSMessengerMonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 132A27B9168FDFFC00439653 /* KSMessengerMonitorViewController.xib */; };
 		1358D5211690237C007026A6 /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1358D51F1690237C007026A6 /* KSMessenger.m */; };
 		1358D5221690237C007026A6 /* KSMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1358D51F1690237C007026A6 /* KSMessenger.m */; };
+		1358D5291690240C007026A6 /* KSMessengerMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1358D5271690240C007026A6 /* KSMessengerMonitorViewController.m */; };
+		1358D52A1690240C007026A6 /* KSMessengerMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1358D5271690240C007026A6 /* KSMessengerMonitorViewController.m */; };
+		1358D52B1690240C007026A6 /* KSMessengerMonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1358D5281690240C007026A6 /* KSMessengerMonitorViewController.xib */; };
+		1358D52C1690240C007026A6 /* KSMessengerMonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1358D5281690240C007026A6 /* KSMessengerMonitorViewController.xib */; };
 		13A34D37168C4A6400EA938B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D36168C4A6400EA938B /* UIKit.framework */; };
 		13A34D39168C4A6400EA938B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D38168C4A6400EA938B /* Foundation.framework */; };
 		13A34D3B168C4A6400EA938B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A34D3A168C4A6400EA938B /* CoreGraphics.framework */; };
@@ -40,11 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		132A27B7168FDFFC00439653 /* KSMessengerMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSMessengerMonitorViewController.h; path = KSMessengerMonitorViewControl/KSMessengerMonitorViewController.h; sourceTree = "<group>"; };
-		132A27B8168FDFFC00439653 /* KSMessengerMonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSMessengerMonitorViewController.m; path = KSMessengerMonitorViewControl/KSMessengerMonitorViewController.m; sourceTree = "<group>"; };
-		132A27B9168FDFFC00439653 /* KSMessengerMonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KSMessengerMonitorViewController.xib; path = KSMessengerMonitorViewControl/KSMessengerMonitorViewController.xib; sourceTree = "<group>"; };
 		1358D51E1690237C007026A6 /* KSMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMessenger.h; sourceTree = "<group>"; };
 		1358D51F1690237C007026A6 /* KSMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMessenger.m; sourceTree = "<group>"; };
+		1358D5261690240C007026A6 /* KSMessengerMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMessengerMonitorViewController.h; sourceTree = "<group>"; };
+		1358D5271690240C007026A6 /* KSMessengerMonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMessengerMonitorViewController.m; sourceTree = "<group>"; };
+		1358D5281690240C007026A6 /* KSMessengerMonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KSMessengerMonitorViewController.xib; sourceTree = "<group>"; };
 		13A34D32168C4A6400EA938B /* KSMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13A34D36168C4A6400EA938B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		13A34D38168C4A6400EA938B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -89,16 +89,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		132A27B6168FDFCD00439653 /* KSMessengerMonitorViewControl */ = {
-			isa = PBXGroup;
-			children = (
-				132A27B7168FDFFC00439653 /* KSMessengerMonitorViewController.h */,
-				132A27B8168FDFFC00439653 /* KSMessengerMonitorViewController.m */,
-				132A27B9168FDFFC00439653 /* KSMessengerMonitorViewController.xib */,
-			);
-			name = KSMessengerMonitorViewControl;
-			sourceTree = "<group>";
-		};
 		1358D51D1690237C007026A6 /* KSMessenger */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,11 +99,22 @@
 			path = lib/KSMessenger;
 			sourceTree = "<group>";
 		};
+		1358D5251690240C007026A6 /* KSMessengerMonitorViewControl */ = {
+			isa = PBXGroup;
+			children = (
+				1358D5261690240C007026A6 /* KSMessengerMonitorViewController.h */,
+				1358D5271690240C007026A6 /* KSMessengerMonitorViewController.m */,
+				1358D5281690240C007026A6 /* KSMessengerMonitorViewController.xib */,
+			);
+			name = KSMessengerMonitorViewControl;
+			path = lib/KSMessengerMonitorViewControl;
+			sourceTree = "<group>";
+		};
 		13A34D27168C4A6400EA938B = {
 			isa = PBXGroup;
 			children = (
+				1358D5251690240C007026A6 /* KSMessengerMonitorViewControl */,
 				1358D51D1690237C007026A6 /* KSMessenger */,
-				132A27B6168FDFCD00439653 /* KSMessengerMonitorViewControl */,
 				13A34D3C168C4A6400EA938B /* KSMessengerApp */,
 				13A34D5A168C4A6400EA938B /* KSMessengerTests */,
 				13A34D35168C4A6400EA938B /* Frameworks */,
@@ -259,7 +260,7 @@
 				13A34D49168C4A6400EA938B /* Default.png in Resources */,
 				13A34D4B168C4A6400EA938B /* Default@2x.png in Resources */,
 				13A34D4D168C4A6400EA938B /* Default-568h@2x.png in Resources */,
-				132A27BC168FDFFC00439653 /* KSMessengerMonitorViewController.xib in Resources */,
+				1358D52B1690240C007026A6 /* KSMessengerMonitorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A34D5F168C4A6400EA938B /* InfoPlist.strings in Resources */,
-				132A27BD168FDFFC00439653 /* KSMessengerMonitorViewController.xib in Resources */,
+				1358D52C1690240C007026A6 /* KSMessengerMonitorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +298,8 @@
 			files = (
 				13A34D43168C4A6400EA938B /* main.m in Sources */,
 				13A34D47168C4A6400EA938B /* AppDelegate.m in Sources */,
-				132A27BA168FDFFC00439653 /* KSMessengerMonitorViewController.m in Sources */,
 				1358D5211690237C007026A6 /* KSMessenger.m in Sources */,
+				1358D5291690240C007026A6 /* KSMessengerMonitorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,8 +308,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A34D62168C4A6400EA938B /* KSMessengerTests.m in Sources */,
-				132A27BB168FDFFC00439653 /* KSMessengerMonitorViewController.m in Sources */,
 				1358D5221690237C007026A6 /* KSMessenger.m in Sources */,
+				1358D52A1690240C007026A6 /* KSMessengerMonitorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
