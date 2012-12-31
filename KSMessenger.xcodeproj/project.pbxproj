@@ -402,6 +402,7 @@
 				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
 				INFOPLIST_FILE = "KSMessenger/KSMessenger-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -413,6 +414,7 @@
 				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
 				INFOPLIST_FILE = "KSMessenger/KSMessenger-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -429,6 +431,7 @@
 				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
 				INFOPLIST_FILE = "KSMessengerTests/KSMessengerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
 				TEST_HOST = "";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -446,6 +449,7 @@
 				GCC_PREFIX_HEADER = "KSMessenger/KSMessenger-Prefix.pch";
 				INFOPLIST_FILE = "KSMessengerTests/KSMessengerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};

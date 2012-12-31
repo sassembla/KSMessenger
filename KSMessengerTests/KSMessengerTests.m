@@ -407,6 +407,7 @@ KSMessenger * child_persis;
  */
 - (void) testExecReceivedSpecificFilter {
     ClassA * classA = [[ClassA alloc]initClassA];
+    NSLog(@"classA %@", classA);
     
     KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(receiver:) withName:TEST_CHILD_NAME_0];
     [child_0 connectParent:TEST_CLASS_A];
@@ -553,7 +554,7 @@ KSMessenger * child_persis;
 
 //relationship  -generate relationship from child-candidate to parent-candidate, then connect them.
 /**
- find parent
+ connect to parent
  */
 - (void) testInputToParent {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
@@ -563,7 +564,7 @@ KSMessenger * child_persis;
 }
 
 /*
- find parent -check parent name of child
+ connect to parent -check parent name of child
  */
 - (void) testGetParentName {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
@@ -575,7 +576,7 @@ KSMessenger * child_persis;
 }
 
 /**
- find parent -check parent logDict
+ connect to parent -check parent logDict
  */
 - (void) testGetChildDict {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
@@ -587,7 +588,7 @@ KSMessenger * child_persis;
 }
 
 /**
- find parent -remove child
+ connect to parent -remove child
  */
 - (void) testRemoveChild {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
@@ -601,9 +602,9 @@ KSMessenger * child_persis;
 }
 
 /**
- find parent -same name some child
+ connect to parent -same name some child
  */
-- (void) testSameNameChild {
+- (void) testConnectParentWithSameNameChild {
 	KSMessenger * child_00 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
 	KSMessenger * child_01 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
 	KSMessenger * child_02 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
@@ -638,9 +639,9 @@ KSMessenger * child_persis;
 }
 
 /**
- input parent -then release some children
+ connect to parent -then release some children
  */
-- (void) testInputParent_multiChild_multiRelease {
+- (void) testConnectParent_multiChild_multiRelease {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
 	
 	KSMessenger * child_2 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild2:) withName:TEST_CHILD_NAME_2];
@@ -656,7 +657,7 @@ KSMessenger * child_persis;
 }
 
 /**
- input parent -remove from parent then re input to other parent
+ connect to parent -remove from parent then re input to other parent
  */
 - (void) testResetParent {
 	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
