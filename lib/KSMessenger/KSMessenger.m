@@ -1260,14 +1260,16 @@
     
     int exec;
     
-    if ([sender length] < [execSource length]) {
+    //sender name check
+    if ([[dict valueForKey:MS_SENDERNAME] isEqualToString:sender]) {
         exec = [[execSource substringFromIndex:[sender length]] intValue];
         NSAssert(exec != MS_DEFAULT_UNDEFINED_EXEC, @"cannnot receive exec-param = -1, this is reserved as NONE in this system.");
         NSAssert(0 <= exec, @"cannnot receive negative-exec < 0");
     } else {
-        exec = MS_DEFAULT_UNDEFINED_EXEC;
+        exec = MS_DEFAULT_NONTARGETED_EXEC;// = NONE
     }
     
+    //check relationship
     if ([sender isEqualToString:myName]) {
         return exec;
     }

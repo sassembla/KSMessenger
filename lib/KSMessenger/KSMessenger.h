@@ -80,8 +80,9 @@
 #define MS_DEFAULT_PARENTMID        (@"MESSENGER_SYSTEM_COMMAND:MS_DEFAULT_PARENTMID")//デフォルトのmyParentMID
 
 //exec of undefined
-#define MS_DEFAULT_UNDEFINED_EXEC   (-1)
-#define NONE                        (MS_DEFAULT_UNDEFINED_EXEC)
+#define NONE                        (-1)
+#define MS_DEFAULT_NONTARGETED_EXEC (NONE)
+#define MS_DEFAULT_UNDEFINED_EXEC   (NONE)
 
 #define VIEW_NAME_DEFAULT           (@"MESSENGER_SYSTEM_COMMAND:VIEW_NAME_DEFAULT")//デフォルトのViewのName ここに記述することで名称衝突を防ぐ
 

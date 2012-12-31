@@ -55,6 +55,9 @@ typedef enum {
     TEST_EXEC_2012_12_29_21_04_06,
     TEST_EXEC_2012_12_29_21_05_40,
     
+    TEST_EXEC_2012_12_31_22_35_49,
+    TEST_EXEC_2012_12_31_22_36_17,
+    
     TEST_EXEC_CALLBACK_1,
     TEST_EXEC_CALLBACK_2,
     TEST_EXEC_CALLBACK_TO_PARENT,
@@ -63,6 +66,55 @@ typedef enum {
     TEST_EXEC_2012_12_30_0_55_42,
     
 } testEnums;
+
+
+/**
+ class for exec-test
+ */
+#define TEST_CLASS_A    (@"TEST_CLASS_A")
+
+typedef enum {
+    TEST_EXEC_A_FROMA = 0,
+    TEST_EXEC_A_FROMOTHER,
+} classAEnum;
+
+@interface ClassA : NSObject {
+    KSMessenger * messenger;
+}
+@end
+
+@implementation ClassA
+- (id) initClassA {
+    if (self = [super init]) {
+        messenger = [[KSMessenger alloc]initWithBodyID:self withSelector:@selector(receiver:) withName:TEST_CLASS_A];
+    }
+    return self;
+}
+
+
+- (void) receiver:(NSNotification * )notif {
+    switch ([messenger execFrom:TEST_CHILD_NAME_0 viaNotification:notif]) {
+        case TEST_EXEC_2012_12_31_22_35_49:{
+            NSLog(@"reached");
+            break;
+        }
+            
+        //if TEST_CHILD_NAME_1 call this messenger, must not be reached.
+        case TEST_EXEC_2012_12_31_22_36_17:{
+            NSAssert(false, @"not reachable");
+            break;
+        }
+        
+        default:
+            break;
+    }
+}
+
+@end
+
+/**
+ class for callback-test
+ */
 
 //callback
 #define TEST_CLASS_B                (@"TEST_CLASS_B")
@@ -84,16 +136,10 @@ typedef enum {
 #define TEST_TAG_CALLBACK_RECURSIVE     (@"TEST_TAG_CALLBACK_RECURSIVE")
 #define TEST_TAG_2012_12_30_0_56_04     (@"TEST_TAG_2012_12_30_0_56_04")
 
-
 typedef enum {
     TEST_EXEC_CALLBACK = 0
 } callbackEnum;
 
-
-
-/**
- class for callback-test
- */
 @interface ClassB : NSObject {
     KSMessenger * messenger;
 }
@@ -355,8 +401,28 @@ KSMessenger * child_persis;
     @finally {}
 }
 
-
-
+/**
+ exec -receive only specific exec as not NONE
+    use relationship and exec-identification-information
+ */
+- (void) testExecReceivedSpecificFilter {
+    ClassA * classA = [[ClassA alloc]initClassA];
+    
+    KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(receiver:) withName:TEST_CHILD_NAME_0];
+    [child_0 connectParent:TEST_CLASS_A];
+    
+    KSMessenger * child_1 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(receiver:) withName:TEST_CHILD_NAME_1];
+    [child_1 connectParent:TEST_CLASS_A];
+    
+    
+    //sender must match execFrom-filter
+    
+    //will reach
+    [child_0 callParent:TEST_EXEC_2012_12_31_22_35_49, nil];
+    
+    //will not reach
+    [child_1 callParent:TEST_EXEC_2012_12_31_22_36_17, nil];
+}
 
 
 
