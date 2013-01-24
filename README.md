@@ -13,7 +13,9 @@ Send/Broadcast/Callback everything each other.
 That's all.
 
 **Usage**  
-Please see the tests.  
+Please run the project.
+
+and see the tests.  
 [https://github.com/sassembla/KSMessenger/blob/master/KSMessengerTests/KSMessengerTests.m](https://github.com/sassembla/KSMessenger/blob/master/KSMessengerTests/KSMessengerTests.m)
 
 **ToDo**  

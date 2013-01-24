@@ -11,6 +11,13 @@
 
 #define SAMPLEAPP_MASTER    (@"SAMPLEAPP_MASTER")
 
+
+typedef enum {
+    EXEC_SHOW = 0,
+    EXEC_HIDE
+} SampleAppExecEnum ;
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -28,8 +35,7 @@
     
     
     
-    [messenger call:SAMPLEAPP_MAINVIEWCONT withExec:SAMPLEAPP_MAINVIEWCONT_EXEC_HIDE, nil];
-    
+    [messenger callMyself:EXEC_SHOW, nil];
     
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -37,7 +43,29 @@
     return YES;
 }
 - (void) receiver:(NSNotification * )notif {
-    
+    switch ([messenger execFrom:[messenger myName] viaNotification:notif]) {
+        case EXEC_SHOW:{
+            [messenger call:SAMPLEAPP_MAINVIEWCONT withExec:SAMPLEAPP_MAINVIEWCONT_EXEC_SHOW, nil];
+            
+            [messenger callMyself:EXEC_HIDE,
+             [messenger withDelay:1.0],
+             nil];
+            break;
+        }
+        case EXEC_HIDE:{
+            [messenger call:SAMPLEAPP_MAINVIEWCONT withExec:SAMPLEAPP_MAINVIEWCONT_EXEC_HIDE, nil];
+            
+            [messenger callMyself:EXEC_SHOW,
+             [messenger withDelay:1.0],
+             nil];
+            
+            break;
+        }
+            
+            
+        default:
+            break;
+    }
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {

@@ -9,8 +9,6 @@
 #import "SampleMainViewController.h"
 
 
-
-
 @interface SampleMainViewController ()
 
 @end
@@ -31,6 +29,10 @@
     switch ([messenger execFrom:[messenger myParentName] viaNotification:notif]) {
         case SAMPLEAPP_MAINVIEWCONT_EXEC_HIDE:{
             [self.view setHidden:YES];
+            break;
+        }
+        case SAMPLEAPP_MAINVIEWCONT_EXEC_SHOW:{
+            [self.view setHidden:NO];
             break;
         }
             
