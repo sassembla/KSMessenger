@@ -1297,11 +1297,31 @@
  if nil is inserted to tag or val, assert failure.
  */
 - (NSDictionary * ) tag:(id)obj_tag val:(id)obj_value {
-	NSAssert1(obj_tag, @"tag_%@ is nil",obj_tag);
-	NSAssert2(obj_value, @"val_%@ is nil for tag_%@",obj_value, obj_tag);
+	NSAssert1(obj_tag, @"tag:val: tag_%@ is nil",obj_tag);
+	NSAssert2(obj_value, @"tag:val: val_%@ is nil for tag_%@",obj_value, obj_tag);
 	
 	return [NSDictionary dictionaryWithObject:obj_value forKey:obj_tag];
 }
+
+/**
+ val-tag function
+ if nil is inserted to tag or val, assert failure.
+ */
+- (NSDictionary * ) val:(id)obj_value tag:(id)obj_tag {
+	NSAssert1(obj_tag, @"val:tag: tag_%@ is nil",obj_tag);
+	NSAssert2(obj_value, @"val:tag: val_%@ is nil for tag_%@",obj_value, obj_tag);
+	
+	return [NSDictionary dictionaryWithObject:obj_value forKey:obj_tag];
+}
+
+/**
+ tags & values function
+ */
+- (NSDictionary * ) addTagValues:(NSDictionary * )tagValuesDict {
+    NSAssert1(tagValuesDict, @"addTagValues tagValuesDict_%@ is nil",tagValuesDict);
+    return [NSDictionary dictionaryWithDictionary:tagValuesDict];
+}
+
 
 
 /**

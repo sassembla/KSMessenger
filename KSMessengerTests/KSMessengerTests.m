@@ -58,6 +58,11 @@ typedef enum {
     TEST_EXEC_2012_12_31_22_35_49,
     TEST_EXEC_2012_12_31_22_36_17,
     
+    TEST_EXEC_2013_01_24_15_09_19,
+    TEST_EXEC_2013_01_24_15_09_20,
+    TEST_EXEC_2013_01_24_15_09_21,
+    TEST_EXEC_2013_01_24_15_09_22,
+    
     TEST_EXEC_CALLBACK_1,
     TEST_EXEC_CALLBACK_2,
     TEST_EXEC_CALLBACK_TO_PARENT,
@@ -327,6 +332,85 @@ KSMessenger * child_persis;
 	NSDictionary * m_logDict = [child_0 logStore];
 	
 	STAssertTrue([m_logDict count] == 2, [NSString stringWithFormat:@"内容が合致しません_%d", [m_logDict count]]);
+}
+
+
+//generate tag-value
+
+/**
+ tagValue -tag:val:
+ */
+- (void) testTagValue {
+    NSDictionary * tagValueDict = [parent tag:@"theTag" val:@"theValue"];
+    STAssertTrue([[[tagValueDict keyEnumerator] nextObject] isEqualToString:@"theTag"], @"theTag required");
+}
+
+/**
+ tagValue -val:tag:
+ */
+- (void) testValueTag {
+    NSDictionary * tagValueDict = [parent val:@"theValue" tag:@"theTag"];
+    STAssertTrue([[[tagValueDict keyEnumerator] nextObject] isEqualToString:@"theTag"], @"theTag required");
+}
+
+/**
+ tagValue -addDict:
+ */
+- (void) testAddTagValues {
+    NSDictionary * dict = [[NSDictionary alloc]initWithObjectsAndKeys:@"theValue", @"theTag", nil];
+    NSDictionary * tagValueDict = [parent addTagValues:dict];
+    STAssertTrue([[[tagValueDict keyEnumerator] nextObject] isEqualToString:@"theTag"], @"theTag required");
+}
+
+/**
+ tagValue -addTagValues: multi
+ */
+- (void) testAddTagValuesMulti {
+    NSDictionary * dict = [[NSDictionary alloc]initWithObjectsAndKeys:
+                           @"val1", @"tag1",
+                           @"val2", @"tag2",
+                           nil];
+    
+    NSDictionary * tagValueDict = [parent addTagValues:dict];
+    STAssertTrue([tagValueDict count] == 2, @"not match");
+}
+
+- (void) testTagValueKitchenSink {
+    [child_persis connectParent:TEST_PARENT_NAME];
+    
+    //tag-val
+    [parent call:TEST_CHILDPERSIS_NAME withExec:TEST_EXEC_2013_01_24_15_09_19,
+     [parent tag:@"2013/01/24 15:11:10" val:@"2013/01/24 15:11:12"],
+     nil];
+    
+    
+    //val-tag
+    [parent call:TEST_CHILDPERSIS_NAME withExec:TEST_EXEC_2013_01_24_15_09_20,
+     [parent val:@"2013/01/24 15:11:51" tag:@"2013/01/24 15:11:53"],
+     nil];
+    
+    
+    //addTagValues
+    NSDictionary * dict1 = [[NSDictionary alloc]initWithObjectsAndKeys:
+                           @"2013/01/24 15:12:20", @"2013/01/24 15:12:24",
+                           @"2013/01/24 15:12:35", @"2013/01/24 15:12:45",
+                           nil];
+    [parent call:TEST_CHILDPERSIS_NAME withExec:TEST_EXEC_2013_01_24_15_09_21,
+     [parent addTagValues:dict1],
+     nil];
+    
+    
+    //mix
+    NSDictionary * dict2 = [[NSDictionary alloc]initWithObjectsAndKeys:
+                            @"2013/01/24 15:14:16", @"2013/01/24 15:14:18",
+                            @"2013/01/24 15:14:23", @"2013/01/24 15:14:26",
+                            nil];
+    [parent call:TEST_CHILDPERSIS_NAME withExec:TEST_EXEC_2013_01_24_15_09_22,
+     [parent tag:@"2013/01/24 15:13:38" val:@"2013/01/24 15:13:40"],
+     [parent val:@"2013/01/24 15:13:47" tag:@"2013/01/24 15:13:52"],
+     [parent addTagValues:dict2],
+     nil];
+    
 }
 
 
@@ -1371,6 +1455,9 @@ KSMessenger * child_persis;
 
 
 
+
+
+
 //------------------receivers for tests--------------------
 /**
  receiver for parent
@@ -1381,7 +1468,10 @@ KSMessenger * child_persis;
  receiver for child_persis
  */
 - (void) child_persisReceiver:(NSNotification * )notification {
-	switch ([child_persis execFrom:TEST_CHILDPERSIS_NAME viaNotification:notification]) {
+    
+    NSDictionary * dict = [child_persis tagValueDictionaryFromNotification:notification];
+	
+    switch ([child_persis execFrom:TEST_CHILDPERSIS_NAME viaNotification:notification]) {
         case NONE:{
             break;
         }
@@ -1403,6 +1493,46 @@ KSMessenger * child_persis;
             [child_persis callParent:TEST_EXEC_2012_12_29_21_05_40, nil];
             break;
         }
+        
+        /*
+         tagValue
+         */
+        case TEST_EXEC_2013_01_24_15_09_19:{
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:11:10"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:11:10"] isEqualToString:@"2013/01/24 15:11:12"], @"not match");
+            break;
+        }
+        case TEST_EXEC_2013_01_24_15_09_20:{
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:11:53"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:11:53"] isEqualToString:@"2013/01/24 15:11:51"], @"not match");
+            break;
+        }
+            
+        case TEST_EXEC_2013_01_24_15_09_21:{
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:12:24"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:12:24"] isEqualToString:@"2013/01/24 15:12:20"], @"not match");
+            
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:12:45"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:12:45"] isEqualToString:@"2013/01/24 15:12:35"], @"not match");            
+            break;
+        }
+        case TEST_EXEC_2013_01_24_15_09_22:{
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:14:18"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:14:18"] isEqualToString:@"2013/01/24 15:14:16"], @"not match");
+            
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:14:26"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:14:26"] isEqualToString:@"2013/01/24 15:14:23"], @"not match");
+   
+            
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:13:38"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:13:38"] isEqualToString:@"2013/01/24 15:13:40"], @"not match");
+            
+            STAssertNotNil([dict valueForKey:@"2013/01/24 15:13:52"], @"not match");
+            STAssertTrue([[dict valueForKey:@"2013/01/24 15:13:52"] isEqualToString:@"2013/01/24 15:13:47"], @"not match");
+            break;
+        }
+            
+            
         case NONE:{
             break;
         }

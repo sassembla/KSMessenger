@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KSMessenger.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+    KSMessenger * messenger;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

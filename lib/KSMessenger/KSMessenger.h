@@ -6,7 +6,9 @@
 //  Copyright (c) 2012年 KISSAKI Inc,. All rights reserved.
 //
 
-#define MS_VERSION  (@"0.0.1")//2012/12/27 20:09:37
+#define MS_VERSION  (@"0.5.0")//2013/01/24 14:18:14
+/*(@"0.0.1")//2012/12/27 20:09:37
+ */
 
 
 
@@ -161,6 +163,8 @@
  tags and values
  */
 - (NSDictionary * ) tag:(id)obj_tag val:(id)obj_value;
+- (NSDictionary * ) val:(id)obj_value tag:(id)obj_tag;
+- (NSDictionary * ) addTagValues:(NSDictionary * )tagValuesDict;
 - (NSDictionary * ) withDelay:(float)delay;//set delay
 
 
