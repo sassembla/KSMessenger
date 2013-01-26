@@ -25,7 +25,7 @@ typedef enum {
     
     messenger = [[KSMessenger alloc]initWithBodyID:self withSelector:@selector(receiver:) withName:SAMPLEAPP_MASTER];
     
-    SampleMainViewController * sampleMainView = [[SampleMainViewController alloc]initSampleMainViewControllerWithMasterName:SAMPLEAPP_MASTER];
+    SampleMainViewController * sampleMainView = [[SampleMainViewController alloc]initSampleMainViewControllerWithMasterName:[messenger myName]];
     
     
     

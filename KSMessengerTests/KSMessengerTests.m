@@ -13,8 +13,6 @@
 @interface KSMessengerTests : SenTestCase @end
 
 
-
-
 //-------------------test stuff defines & enums
 #define TEST_PARENT_NAME        (@"TEST_PARENT_NAME")
 #define TEST_CHILDPERSIS_NAME   (@"TEST_CHILDPERSIS_NAME")
@@ -303,6 +301,37 @@ KSMessenger * child_persis;
 - (void) testMessengerName {
 	STAssertEquals([parent myName],TEST_PARENT_NAME, @"自分で設定した名前がこの時点で異なる！");
 }
+
+/*
+ initialize -should not use MS_DEFINE_NAME_ID_DELIMITER in name
+ */
+- (void) testSouldNotUserMS_DEFINE_NAME_ID_DELIMITERInMessengerName {
+    KSMessenger * testMessenger;
+	@try {
+        testMessenger = [[KSMessenger alloc]initWithBodyID:self withSelector:nil withName:@"¥@"];
+        STFail(@"should not reach here");
+        
+    }
+    @catch (NSException *exception) {
+        [testMessenger closeConnection];
+    }
+    @finally {
+        
+    }
+}
+
+
+
+
+/*
+ messenger -name + MS_DEFINE_NAME_ID_DELIMITER + mID
+ */
+- (void) testMessengerNameAndMID {
+    NSString * parentId = [parent myMID];
+    NSString * myNameAndMID = [NSString stringWithFormat:@"%@@%@", TEST_PARENT_NAME, parentId];
+	STAssertTrue([[parent myNameAndMID] isEqualToString:myNameAndMID], @"自分で設定した名前がこの時点で異なる！");
+}
+
 
 
 /**
@@ -646,6 +675,28 @@ KSMessenger * child_persis;
 	[child_0 connectParent:TEST_PARENT_NAME];
 	STAssertEquals([child_0 myParentMID], [parent myMID], [NSString stringWithFormat:@"親のIDが想定と違う/child_0_%@, parent_%@", [child_0 myParentMID], [parent myMID]]);
 }
+
+/**
+ connect to parent -use parent MID
+ */
+- (void) testInputToParentWithSpecifiedMID {
+	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
+	
+	[child_0 connectParent:TEST_PARENT_NAME withSpecifiedMID:[parent myMID]];
+	STAssertEquals([child_0 myParentMID], [parent myMID], [NSString stringWithFormat:@"親のIDが想定と違う/child_0_%@, parent_%@", [child_0 myParentMID], [parent myMID]]);
+}
+
+/**
+ connect to parent -use parent MID 2
+ */
+- (void) testInputToParentWithSpecifiedMID2 {
+	KSMessenger * child_0 = [[KSMessenger alloc] initWithBodyID:self withSelector:@selector(m_testChild0:) withName:TEST_CHILD_NAME_0];
+	
+	[child_0 connectParent:[parent myNameAndMID]];
+	STAssertEquals([child_0 myParentMID], [parent myMID], [NSString stringWithFormat:@"親のIDが想定と違う/child_0_%@, parent_%@", [child_0 myParentMID], [parent myMID]]);
+}
+
+
 
 /*
  connect to parent -check parent name of child

@@ -8,6 +8,7 @@
 
 #import "KSMessenger.h"
 
+#define MS_DEFINE_NAME_ID_DELIMITER (@"@")
 
 
 @interface KSMessenger (PrivateImplements)
@@ -765,6 +766,8 @@
 	if (self = [super init]) {
         
 		NSAssert(name, @"withName引数がnilです。　名称をセットしてください。");
+        NSAssert([name rangeOfString:MS_DEFINE_NAME_ID_DELIMITER].location == NSNotFound, @"使用が禁止されている文字 MS_DEFINE_NAME_ID_DELIMITER(=@)が含まれています。 すいませんが避けてください。");
+        
 		myName = [[NSString alloc]initWithString:name];
 		
 		NSAssert(body_id, @"initWithBodyID引数がnilです。　制作者のidをセットしてください。");
@@ -790,12 +793,30 @@
 /**
  親候補を探索、存在する場合、親子関係を構築する
  
+ name@identityと書く事で、特定の親へと入力することが可能。
+ parent : name = PARENT, MId = E2FD8F50 等のとき、
+
+ [ childCandidate connectParent:PARENT@E2FD8F50 ]
+ = 
+ [ childCandidate connectParent:PARENT withSpecifiedMID:E2FD8F50 ]
+ 
+ 
  親へと自分が子供である事の通知を行い、返り値として親のMIDをmyParentMIDとして受け取るメソッド
  受け取り用のメソッドの情報を親へと渡し、親からの遠隔MID入力を受ける。
  */
 - (void) connectParent:(NSString * )parentName {
 	NSAssert1(![parentName isEqualToString:[self myName]], @"自分と同名のmessengerを親に指定する事は出来ません_指定されたparentName_%@", parentName);
-	[self connectParent:parentName withSpecifiedMID:nil];
+    
+    if ([parentName rangeOfString:MS_DEFINE_NAME_ID_DELIMITER].location == NSNotFound) {
+        [self connectParent:parentName withSpecifiedMID:nil];
+    } else {
+        NSArray * nameAndMIdArray = [parentName componentsSeparatedByString:MS_DEFINE_NAME_ID_DELIMITER];
+        
+        NSString * currentParentName = [nameAndMIdArray objectAtIndex:0];
+        NSString * currentParentMId = [nameAndMIdArray objectAtIndex:1];
+        
+        [self connectParent:currentParentName withSpecifiedMID:currentParentMId];
+    }
 }
 
 
@@ -839,7 +860,7 @@
 	[dict removeAllObjects];
 	
 	
-	NSAssert1([self hasParent], @"指定した親が存在しないようです。inputParentに指定している名前を確認してください_現在探して見つからなかった親の名前は_%@",[self myParentName]);
+	NSAssert1([self hasParent], @"指定した親が存在しないようです。connectParentに指定している名前を確認してください_現在探して見つからなかった親の名前は_%@",[self myParentName]);
 	
 }
 
@@ -1237,6 +1258,10 @@
 - (NSString * )myMID {
 	return myMID;
 }
+- (NSString * )myNameAndMID {
+	return [NSString stringWithFormat:@"%@%@%@", myName, MS_DEFINE_NAME_ID_DELIMITER, myMID];
+}
+
 - (NSString * )myParentName {
     return myParentName;
 }

@@ -6,8 +6,9 @@
 //  Copyright (c) 2012年 KISSAKI Inc,. All rights reserved.
 //
 
-#define MS_VERSION  (@"0.5.0")//2013/01/24 14:18:14
-/*(@"0.0.1")//2012/12/27 20:09:37
+#define MS_VERSION (@"0.5.1")//2013/01/26 15:39:05 add "name@identity" function
+/*(@"0.5.0")//2013/01/24 14:18:14 open
+ (@"0.0.1")//2012/12/27 20:09:37
  */
 
 
@@ -99,10 +100,8 @@
 
 
 @interface KSMessenger : NSObject {
-    
 	id myBodyID;    //master id
 	SEL myBodySelector;//the selector that'll fire when received message
-	
 		
 	NSString * myName;
 	NSString * myMID;
@@ -182,6 +181,7 @@
 
 - (NSString * )myName;
 - (NSString * )myMID;
+- (NSString * )myNameAndMID;
 - (NSString * )myParentName;
 - (NSString * )myParentMID;
 
