@@ -1307,7 +1307,6 @@
         return exec;
     }
     
-    NSAssert(false, @"there is no relationships between self:%@ to sender:%@", [self myName], sender);
     return MS_DEFAULT_UNDEFINED_EXEC;
 }
 
