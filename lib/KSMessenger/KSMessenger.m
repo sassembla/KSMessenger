@@ -166,7 +166,7 @@
 		}
 		
 		
-		if ([senderName isEqualToString:[self myParentName]]) {//送信者が自分の親の場合のみ、処理を進める
+		if ([senderName isEqualToString:[self myParentName]] && [senderMID isEqualToString:[self myParentMID]]) {//送信者が自分の親の場合のみ、処理を進める
 			
 			[self saveLogForReceived:recievedLogDict];
 			
