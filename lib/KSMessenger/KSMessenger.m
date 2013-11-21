@@ -131,8 +131,7 @@
 		
 		//設定されたbodyのメソッドを実行
 		IMP func = [myBodyID methodForSelector:myBodySelector];
-		(*func)(myBodyID, myBodySelector, notification);
-		
+        ((void(*)(id, SEL, NSNotification * ))func)(myBodyID, myBodySelector, notification);
 		
 		return;
 	}
@@ -173,7 +172,7 @@
 			
 			//設定されたbodyのメソッドを実行
 			IMP func = [myBodyID methodForSelector:myBodySelector];
-			(* func)(myBodyID, myBodySelector, notification);
+            ((void(*)(id, SEL, NSNotification * ))func)(myBodyID, myBodySelector, notification);
 			return;
 		}
 		
@@ -212,7 +211,7 @@
 				
 				//設定されたbodyのメソッドを実行
 				IMP func = [myBodyID methodForSelector:myBodySelector];
-				(*func)(myBodyID, myBodySelector, notification);
+                ((void(*)(id, SEL, NSNotification * ))func)(myBodyID, myBodySelector, notification);
 				return;
 			}
 		}
@@ -751,7 +750,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:OBSERVER_ID object:nil];//ノーティフィケーションから外す
 	
 	if ([self hasChild]) [self removeAllChildren];
-	NSAssert([[self childrenDict] count] == 0, @"childDict_%d",[[self childrenDict] count]);
+	NSAssert([[self childrenDict] count] == 0, @"childDict_%lu",(unsigned long)[[self childrenDict] count]);
 	
 	if ([self hasParent]) [self removeFromParent];
 	NSAssert([myParentName isEqualToString:MS_DEFAULT_PARENTNAME], @"myParentName is not MS_DEFAULT_PARENTNAME");
@@ -995,7 +994,8 @@
 	NSArray * arrays = [[self childrenDict] allValues];
 	for (int i = 0; i <= [arrays count]; i++) {
 		if (i == [arrays count]) {
-			NSAssert1(FALSE, @"Without MID call先に指定したmessengerが存在しないか、未知のものです。このメソッドを使用するより先に、子供MessengerからfindParent(子から親を指定)を使ってください。_%@",childName);
+//			NSAssert1(FALSE, @"Without MID call先に指定したmessengerが存在しないか、未知のものです。このメソッドを使用するより先に、子供MessengerからfindParent(子から親を指定)を使ってください。_%@",childName);
+            NSLog(@"ちょっと無視するけどヤバそうな状態のエラー");
 			return nil;
 		}
 		
@@ -1165,7 +1165,7 @@
 		return nil;
 	}
 	
-	NSAssert(false, @"親設定が無い");
+	NSAssert1(false, @"親設定が無い, %@", [self myName]);
     return nil;
 }
 
@@ -1176,7 +1176,6 @@
     
     //Notificationが欲しい情報を保持しているかどうかチェック
     NSMutableDictionary * sourceDict = (NSMutableDictionary *)[notif userInfo];
-	NSLog(@"sourceDict  %@", sourceDict);
     
 	//送信者MID
 	NSString * senderMID = [sourceDict valueForKey:MS_SENDERMID];
